@@ -1,0 +1,37 @@
+{
+  "alarms": [
+    {
+      "name": "starttech-high-cpu",
+      "description": "CPU utilization above 80%",
+      "metric": "CPUUtilization",
+      "namespace": "AWS/EC2",
+      "threshold": 80,
+      "comparison": "GreaterThanThreshold",
+      "period": 120,
+      "evaluation_periods": 2,
+      "statistic": "Average"
+    },
+    {
+      "name": "starttech-low-cpu",
+      "description": "CPU utilization below 20%",
+      "metric": "CPUUtilization",
+      "namespace": "AWS/EC2",
+      "threshold": 20,
+      "comparison": "LessThanThreshold",
+      "period": 120,
+      "evaluation_periods": 2,
+      "statistic": "Average"
+    },
+    {
+      "name": "starttech-high-5xx",
+      "description": "High number of 5XX errors",
+      "metric": "HTTPCode_Target_5XX_Count",
+      "namespace": "AWS/ApplicationELB",
+      "threshold": 10,
+      "comparison": "GreaterThanThreshold",
+      "period": 60,
+      "evaluation_periods": 2,
+      "statistic": "Sum"
+    }
+  ]
+}

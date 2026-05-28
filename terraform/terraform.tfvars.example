@@ -1,0 +1,9 @@
+project_name     = "starttech"
+environment      = "production"
+aws_region       = "us-east-1"
+instance_type    = "t2.micro"
+min_size         = 1
+max_size         = 3
+desired_capacity = 2
+mongo_uri        = "mongodb+srv://username:password@cluster.mongodb.net/much_todo_db"
+jwt_secret       = "your-super-secret-jwt-key"

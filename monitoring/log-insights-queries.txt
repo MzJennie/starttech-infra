@@ -1,0 +1,22 @@
+# Backend Error Logs
+fields @timestamp, @message
+| filter @message like /ERROR/
+| sort @timestamp desc
+| limit 50
+
+# Backend Response Times
+fields @timestamp, @message
+| filter @message like /response_time/
+| stats avg(response_time) by bin(5m)
+
+# Failed Authentication Attempts
+fields @timestamp, @message
+| filter @message like /401/ or @message like /unauthorized/
+| sort @timestamp desc
+| limit 100
+
+# Application Startup Logs
+fields @timestamp, @message
+| filter @message like /starting/ or @message like /listening/
+| sort @timestamp desc
+| limit 20
