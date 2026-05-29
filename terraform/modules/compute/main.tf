@@ -186,3 +186,7 @@ resource "aws_autoscaling_policy" "scale_down" {
   cooldown               = 300
   autoscaling_group_name = aws_autoscaling_group.backend.name
 }
+resource "aws_iam_role_policy_attachment" "ec2_ssm" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
