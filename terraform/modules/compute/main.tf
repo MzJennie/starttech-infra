@@ -93,6 +93,33 @@ resource "aws_launch_template" "backend" {
       -e LOG_LEVEL=INFO \
       -e LOG_FORMAT=json \
       ${var.ecr_repository_url}:latest
+
+    # Install CloudWatch agent
+    yum install -y amazon-cloudwatch-agent
+
+    # Configure CloudWatch agent
+    mkdir -p /opt/aws/amazon-cloudwatch-agent/etc
+    cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json << CWCONFIG
+    {
+      "logs": {
+        "logs_collected": {
+          "files": {
+            "collect_list": [
+              {
+                "file_path": "/var/lib/docker/containers/*/*.log",
+                "log_group_name": "/starttech/starttech/backend",
+                "log_stream_name": "{instance_id}",
+                "timezone": "UTC"
+              }
+            ]
+          }
+        }
+      }
+    }
+    CWCONFIG
+
+    systemctl start amazon-cloudwatch-agent
+    systemctl enable amazon-cloudwatch-agent
   EOF
   )
 
